@@ -8,6 +8,11 @@ import { DataLocalService } from 'src/app/services/data-local.service';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
+
+/*
+  @creator: Felipe Pérez M
+  @contact: perezfelipe8877@gmail.com
+*/
 export class Tab1Page {
   data?: string = 'No data';
   inProcess: boolean = false;
@@ -45,9 +50,6 @@ export class Tab1Page {
   };
 
   startScan = async () => {
-    //this.dataLocal.guardarRegistro('https', 'ps://chat.openai.com/chat');
-    //'geo:8.54735366325622, -80.22824010010453'
-  //  this.dataLocal.guardarRegistro('geo', 'geo:8.604779205669447, -80.13702522699094');
     try {
       const status = await this.checkPermission();
 
@@ -58,8 +60,6 @@ export class Tab1Page {
       //  const format = await BarcodeScanner.startScan({ targetedFormats: [SupportedFormat.QR_CODE] }); // start scanning and wait for a result
 
       this.inProcess = true;
-      //this.dataLocal.guardarRegistro('https', 'ps://chat.openai.com/chat');
-      //'geo:8.54735366325622, -80.22824010010453'
      
       document.querySelector('body')?.classList.add('scanner-active');
 
@@ -69,13 +69,9 @@ export class Tab1Page {
         const text = result.content || '';
         const format = result.format || '';
 
-        
-        this.data = `${text}`//n${format};
-        console.log('Elementos: ', this.data);
         this.dataLocal.guardarRegistro(format, text);
-       
-
-        this.presentToast(result.content);
+      
+        this.presentToast();
         this.removeClassAndStopProcess();
       }
     } catch (error) {
@@ -93,11 +89,11 @@ export class Tab1Page {
     this.stopScan();
   }
 
-  async presentToast(mensaje: any) {
+  async presentToast() {
     const toast = await this.toastCtrl.create({
       header: '¡Excelente!',
       // subHeader: 'La asistencia se registró correctamente',
-      message: `Codigo escaneado correctamente'\n  ${mensaje}`,
+      message: `Codigo escaneado correctamente'}`,
       duration: 1500,
       position: 'bottom',
       mode: 'ios',
