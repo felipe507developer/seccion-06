@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { IonicStorageModule } from '@ionic/storage-angular';
-// import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { File } from '@awesome-cordova-plugins/file/ngx';
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx'
 
@@ -17,7 +17,6 @@ import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx'
   declarations: [AppComponent],
   imports: [
     BrowserModule, 
-    //InAppBrowser,
     IonicModule.forRoot(), 
     AppRoutingModule,
     IonicStorageModule.forRoot(),
@@ -26,7 +25,8 @@ import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx'
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     File,
-    EmailComposer
+    EmailComposer,
+     InAppBrowser,
   ],
   bootstrap: [AppComponent],
 })

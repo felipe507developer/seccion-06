@@ -5,6 +5,7 @@ import { Registro } from '../pages/models/registro.model';
 import { Browser } from '@capacitor/browser';
 import { File } from '@awesome-cordova-plugins/file/ngx';
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx'
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class DataLocalService {
 
   constructor(private storage: Storage,
     private navCtrl: NavController,
-    //   private inAppBrowser: InAppBrowser,
+    private inAppBrowser: InAppBrowser,
     private file: File,
     private emailComposer: EmailComposer
   ) {
@@ -55,7 +56,7 @@ export class DataLocalService {
   async cargarStorage() {
     this.guardados = await this.storage.get('registros') || [];
   }
-  
+
   async abrirRegistro(registro: Registro) {
 
     this.navCtrl.navigateForward('/tabs/tab2');
@@ -63,11 +64,13 @@ export class DataLocalService {
     switch (registro.type) {
 
       case 'http':
-        await Browser.open({ url: registro.text }); //COMANDO CAPACITOR PARA ABRIR EL ENLACE EN LA WEB
+        this.inAppBrowser.create(registro.text, '_blank', 'location=no');
+        //await Browser.open({ url: registro.text }); //COMANDO CAPACITOR PARA ABRIR EL ENLACE EN LA WEB
         //  .create( registro.text, '_system' );
         break;
 
       case 'geo':
+        console.log('OPCION GEO CLICKEADA');
         this.navCtrl.navigateForward(`/tabs/tab2/mapa/${registro.text}`);
         break;
 

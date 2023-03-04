@@ -8,7 +8,7 @@ const routes: Routes = [
     component: Tab2Page,
   },
   {
-    path: 'mapa',
+    path: 'mapa/:geo',
     loadChildren: () => import('../mapa/mapa.module').then( m => m.MapaPageModule)
   }
 ];

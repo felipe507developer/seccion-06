@@ -9,7 +9,9 @@ import { DataLocalService } from 'src/app/services/data-local.service';
 export class Tab2Page {
 
  
-  constructor( public dataLocal: DataLocalService ) {}
+  constructor( public dataLocal: DataLocalService ) {
+    this.dataLocal.cargarStorage();
+  }
 
 
   enviarCorreo() {
@@ -17,7 +19,7 @@ export class Tab2Page {
   }
 
   abrirRegistro( registro: any ) {
-    console.log('Registro', registro );
+    // console.log('Registro', registro );
     this.dataLocal.abrirRegistro( registro );
   }
 }

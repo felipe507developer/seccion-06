@@ -70,7 +70,7 @@ export class Tab1Page {
         const format = result.format || '';
 
         
-        this.data = `${text}\n${format}`;
+        this.data = `${text}`//n${format};
         console.log('Elementos: ', this.data);
         this.dataLocal.guardarRegistro(format, text);
        
