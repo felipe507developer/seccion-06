@@ -8,7 +8,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { IonicStorageModule } from '@ionic/storage-angular';
-import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+// import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { File } from '@awesome-cordova-plugins/file/ngx';
+import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx'
 
 
 @NgModule({
@@ -22,7 +24,10 @@ import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
   
   ],
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    File,
+    EmailComposer
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
