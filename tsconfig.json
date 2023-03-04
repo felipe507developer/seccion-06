@@ -23,6 +23,9 @@
       "es2018", 
       "dom"
     ],
+    "paths": {
+      "localforage": ["node_modules/localforage/dist/localforage.js"]
+    },
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {

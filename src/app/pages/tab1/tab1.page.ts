@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BarcodeScanner, SupportedFormat } from '@capacitor-community/barcode-scanner';
 import { ToastController } from '@ionic/angular';
+import { DataLocalService } from 'src/app/services/data-local.service';
 
 @Component({
   selector: 'app-tab1',
@@ -10,22 +11,23 @@ import { ToastController } from '@ionic/angular';
 export class Tab1Page {
   data?: string = 'No data';
   inProcess: boolean = false;
-  
+
   slideOpts = {
     allowSlidePrev: false,
     allowSlideNext: false
   }
 
-  constructor(private toastCtrl: ToastController) { }
+  constructor(private toastCtrl: ToastController,
+    private dataLocal: DataLocalService) { }
 
   ionViewWillLeave() {
-    console.log('ionViewWillLeave ');
+    //console.log('ionViewWillLeave ');
     window.document.querySelector('body')?.classList.remove('scanner-active');
 
   }
 
   ionViewDidLeave() {
-    console.log('ionViewDidLeave');
+    //console.log('ionViewDidLeave');
     BarcodeScanner.stopScan();
 
   }
@@ -43,6 +45,9 @@ export class Tab1Page {
   };
 
   startScan = async () => {
+    //this.dataLocal.guardarRegistro('https', 'ps://chat.openai.com/chat');
+    //'geo:8.54735366325622, -80.22824010010453'
+  //  this.dataLocal.guardarRegistro('geo', 'geo:8.604779205669447, -80.13702522699094');
     try {
       const status = await this.checkPermission();
 
@@ -53,14 +58,22 @@ export class Tab1Page {
       //  const format = await BarcodeScanner.startScan({ targetedFormats: [SupportedFormat.QR_CODE] }); // start scanning and wait for a result
 
       this.inProcess = true;
+      //this.dataLocal.guardarRegistro('https', 'ps://chat.openai.com/chat');
+      //'geo:8.54735366325622, -80.22824010010453'
+     
       document.querySelector('body')?.classList.add('scanner-active');
 
       const result = await BarcodeScanner.startScan();
       if (result?.hasContent) {
-        console.log(result.content);
+       
+        const text = result.content || '';
+        const format = result.format || '';
 
-        this.data = result.content;
-        this.data += result.format ? result.format : '';
+        
+        this.data = `${text}\n${format}`;
+        console.log('Elementos: ', this.data);
+        this.dataLocal.guardarRegistro(format, text);
+       
 
         this.presentToast(result.content);
         this.removeClassAndStopProcess();
